@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accedi – Oleificio d'Eccellenza</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-body">
+
+    <!-- LEFT: Banner image -->
+    <div class="login-panel-img">
+        <img src="images/banner.jpg" alt="Uliveto">
+        <div class="login-panel-img-overlay">
+            <img class="logo" src="images/logo.jpg" alt="Logo">
+            <h1>Oleificio<br>d'Eccellenza</h1>
+            <p>Accedi per scoprire i nostri oli artigianali<br>e ordinare direttamente online.</p>
+        </div>
+    </div>
+
+    <!-- RIGHT: Login form -->
+    <div class="login-panel-form">
+        <h2>Bentornato!</h2>
+        <p class="subtitle">Accedi al tuo account per continuare</p>
+
+        <div class="form-alert" id="login-alert"></div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" autocomplete="current-password" required>
+            </div>
+            <button type="submit" class="btn-submit" id="btn-login-submit">Accedi</button>
+        </form>
+
+        <p class="register-link">
+            Non hai un account? <a href="register.html">Registrati ora</a>
+        </p>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        const form = document.getElementById('login-form');
+        const alertBox = document.getElementById('login-alert');
+        const submitBtn = document.getElementById('btn-login-submit');
+
+        function showAlert(message, type) {
+            alertBox.textContent = message;
+            alertBox.className = `form-alert show ${type}`;
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Accesso in corso...';
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            const body = new URLSearchParams();
+            body.set('username', email);
+            body.set('password', password);
+
+            try {
+                const response = await fetch('/auth/login', { method: 'POST', body });
+                const data = await response.json().catch(() => null);
+                if (!response.ok) {
+                    throw new Error((data && data.detail) || 'Credenziali non valide');
+                }
+                Auth.setToken(data.access_token);
+                localStorage.setItem('user_email', email);
+                window.location.href = 'index.html';
+            } catch (err) {
+                showAlert(err.message, 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Accedi';
+            }
+        });
+    </script>
+</body>
+</html>

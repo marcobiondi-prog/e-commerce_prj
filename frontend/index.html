@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oleificio d'Eccellenza – Olio Extra Vergine</title>
+    <meta name="description" content="Scopri la nostra selezione di oli extra vergine d'oliva italiani. Qualità artigianale direttamente dall'uliveto.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/products.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="navbar-logo" id="nav-logo">
+                <img src="images/logo.jpg" alt="Logo Oleificio d'Eccellenza">
+                <div class="navbar-brand">
+                    Oleificio d'Eccellenza
+                    <span>Olio Extra Vergine · Italia</span>
+                </div>
+            </a>
+
+            <button class="hamburger" id="hamburger-btn" aria-label="Menu" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" id="nav-home">🏠 Home</a></li>
+                <!-- Popolato via JS in base allo stato di login -->
+                <span id="nav-auth-slot" style="display:contents"></span>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO BANNER -->
+    <div class="hero">
+        <img src="images/banner.jpg" alt="Uliveto italiano al tramonto">
+        <div class="hero-overlay">
+            <div class="hero-text">
+                <h1>L'Oro Verde<br>della Tradizione</h1>
+                <p>Olio extra vergine d'oliva artigianale · 100% Italiano</p>
+                <span class="hero-badge">✦ Dal campo alla tavola</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLASH MESSAGES -->
+    <ul class="messages" id="flash-messages"></ul>
+
+    <!-- CONTENT -->
+    <div class="container">
+
+        <!-- SEARCH BAR -->
+        <div class="search-bar">
+            <form id="search-form">
+                <input type="text" name="q" placeholder="🔍 Cerca prodotto..." id="search-input">
+                <input type="number" name="min_price" placeholder="Prezzo min (€)" step="0.01" min="0" id="price-min">
+                <input type="number" name="max_price" placeholder="Prezzo max (€)" step="0.01" min="0" id="price-max">
+                <button type="submit" id="search-btn">Filtra</button>
+            </form>
+        </div>
+
+        <!-- HEADING -->
+        <div class="section-heading">
+            <h2>I Nostri Prodotti</h2>
+            <span class="count" id="product-count">0 prodotti</span>
+        </div>
+
+        <!-- PRODUCT GRID -->
+        <div class="product-grid" id="product-grid">
+            <div class="empty-state">
+                <div class="emoji">🫒</div>
+                <p>Caricamento prodotti...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>© 2026 Oleificio d'Eccellenza · Olio Extra Vergine di Oliva</p>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>

@@ -11,7 +11,14 @@ broker per i task asincroni eseguiti da Celery.
 ├── docker-compose.yml
 ├── .env.example
 ├── nginx/
-│   └── nginx.conf              # reverse proxy davanti a FastAPI
+│   └── nginx.conf              # serve il frontend + reverse proxy verso FastAPI
+├── frontend/                   # frontend statico (grafica identica al sito OLIO)
+│   ├── index.html              # home con catalogo prodotti e filtri
+│   ├── login.html / register.html
+│   ├── cart.html                # carrello e checkout
+│   ├── css/                    # stile "Oleificio d'Eccellenza" (verde/oro)
+│   ├── js/                     # chiamate alle API (fetch + JWT)
+│   └── images/                 # logo e banner del brand
 └── api/
     ├── Dockerfile
     ├── requirements.txt
@@ -37,8 +44,23 @@ cp .env.example .env
 docker compose up --build
 ```
 
+- Sito (frontend): http://localhost/
 - API: http://localhost/products
 - Documentazione interattiva: http://localhost/docs
+
+## Frontend
+
+Il frontend è statico (HTML/CSS/JS, nessun framework/build step) e riprende
+la stessa identità grafica del sito Django "Oleificio d'Eccellenza"
+(https://github.com/lorenzomastandrea-create/OLIO): stessa palette
+verde/oro, stessi font (Cormorant Garamond + Inter), stessa navbar, hero
+banner e griglia prodotti. Parla con il backend FastAPI via `fetch`,
+usando il token JWT restituito da `/auth/login` (salvato in
+`localStorage`) per le richieste autenticate a `/cart` e `/orders`.
+
+Nginx serve i file di `frontend/` sulla root `/` e fa da reverse proxy
+solo per le rotte `/auth`, `/products`, `/cart`, `/orders`, `/docs`,
+`/redoc`, `/openapi.json` e `/health` verso FastAPI.
 
 ## Note
 

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrati – Oleificio d'Eccellenza</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-body">
+
+    <!-- LEFT: Banner image -->
+    <div class="login-panel-img">
+        <img src="images/banner.jpg" alt="Uliveto">
+        <div class="login-panel-img-overlay">
+            <img class="logo" src="images/logo.jpg" alt="Logo">
+            <h1>Oleificio<br>d'Eccellenza</h1>
+            <p>Crea un account per scoprire i nostri oli artigianali<br>e ordinare direttamente online.</p>
+        </div>
+    </div>
+
+    <!-- RIGHT: Register form -->
+    <div class="login-panel-form">
+        <h2>Benvenuto!</h2>
+        <p class="subtitle">Crea il tuo account per iniziare</p>
+
+        <div class="form-alert" id="register-alert"></div>
+
+        <form id="register-form">
+            <div class="form-group">
+                <label for="full_name">Nome completo</label>
+                <input type="text" id="full_name" name="full_name" autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" autocomplete="new-password" required>
+            </div>
+            <button type="submit" class="btn-submit" id="btn-register-submit">Registrati</button>
+        </form>
+
+        <p class="register-link">
+            Hai già un account? <a href="login.html">Accedi</a>
+        </p>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        const form = document.getElementById('register-form');
+        const alertBox = document.getElementById('register-alert');
+        const submitBtn = document.getElementById('btn-register-submit');
+
+        function showAlert(message, type) {
+            alertBox.textContent = message;
+            alertBox.className = `form-alert show ${type}`;
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Registrazione in corso...';
+
+            const payload = {
+                email: document.getElementById('email').value.trim(),
+                password: document.getElementById('password').value,
+                full_name: document.getElementById('full_name').value.trim() || null,
+            };
+
+            try {
+                await apiJson('/auth/register', {
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                });
+                showAlert('Account creato con successo! Reindirizzamento al login...', 'success');
+                setTimeout(() => { window.location.href = 'login.html'; }, 1200);
+            } catch (err) {
+                showAlert(err.message, 'error');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Registrati';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il tuo carrello – Oleificio d'Eccellenza</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="navbar-logo" id="nav-logo">
+                <img src="images/logo.jpg" alt="Logo Oleificio d'Eccellenza">
+                <div class="navbar-brand">
+                    Oleificio d'Eccellenza
+                    <span>Olio Extra Vergine · Italia</span>
+                </div>
+            </a>
+
+            <button class="hamburger" id="hamburger-btn" aria-label="Menu" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" id="nav-home">🏠 Home</a></li>
+                <span id="nav-auth-slot" style="display:contents"></span>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO BANNER (ridotto) -->
+    <div class="hero" style="height:200px;">
+        <img src="images/banner.jpg" alt="Uliveto italiano al tramonto">
+        <div class="hero-overlay">
+            <div class="hero-text">
+                <h1 style="font-size:2rem;">Il Tuo Carrello</h1>
+                <p>Rivedi i tuoi prodotti prima di completare l'ordine</p>
+            </div>
+        </div>
+    </div>
+
+    <ul class="messages" id="flash-messages"></ul>
+
+    <!-- CONTENT -->
+    <div class="container" style="max-width:800px;">
+        <div class="section-heading">
+            <h2 style="font-family:'Cormorant Garamond', serif; font-size:1.8rem; font-weight:700; color:#2d5016;">I Tuoi Articoli</h2>
+        </div>
+
+        <div id="cart-content">
+            <div class="empty-cart">
+                <div class="emoji">🛒</div>
+                <p>Caricamento carrello...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <p>© 2026 Oleificio d'Eccellenza · Olio Extra Vergine di Oliva</p>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>
